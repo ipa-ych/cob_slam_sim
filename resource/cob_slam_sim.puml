@@ -1,0 +1,56 @@
+@startuml
+
+/'SUBSYSTEMS'/
+component cob_gazebo {
+ }
+
+  component joy_node {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portout joy_node.joy_pub as "joy_pub" #blue
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component teleop_twist_joy_node {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portin teleop_twist_joy_node.joy_sub as "joy_sub" #blue
+    portout teleop_twist_joy_node.cmd_vel_pub as "cmd_vel_pub" #blue
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component twist_mux {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portin twist_mux.cmd_vel_sub as "cmd_vel_sub" #blue
+    portout twist_mux.cmd_vel_out_pub as "cmd_vel_out_pub" #blue
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component cmd_vel_bridge_node {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portin cmd_vel_bridge_node.cmd_vel_out_sub as "cmd_vel_out_sub" #blue
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component ros2_laserscan_merger {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component pointcloud_to_laserscan {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+
+@enduml
