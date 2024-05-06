@@ -25,7 +25,7 @@ component cob_gazebo {
 
 /' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
     portin twist_mux.cmd_vel_sub as "cmd_vel_sub" #blue
-    portout twist_mux.cmd_vel_out_pub as "cmd_vel_out_pub" #blue
+    portout twist_mux.tricycle_controller_cmd_vel as "tricycle_controller_cmd_vel" #blue
 
 /' PORTS FROM THE ORIGINAL NODE '/
   }
@@ -34,6 +34,7 @@ component cob_gazebo {
 
 /' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
     portin cmd_vel_bridge_node.cmd_vel_out_sub as "cmd_vel_out_sub" #blue
+    portout cmd_vel_bridge_node.controller_pub as "controller_pub" #blue
 
 /' PORTS FROM THE ORIGINAL NODE '/
   }
@@ -41,11 +42,31 @@ component cob_gazebo {
   component ros2_laserscan_merger {
 
 /' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portout ros2_laserscan_merger.cloud_in_pub as "cloud_in_pub" #blue
+    portin ros2_laserscan_merger.scan_left_sub as "scan_left_sub" #blue
+    portin ros2_laserscan_merger.scan_right_sub as "scan_right_sub" #blue
+    portin ros2_laserscan_merger.scan_front_sub as "scan_front_sub" #blue
 
 /' PORTS FROM THE ORIGINAL NODE '/
   }
 
   component pointcloud_to_laserscan {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+    portin pointcloud_to_laserscan.cloud_in_sub as "cloud_in_sub" #blue
+    portout pointcloud_to_laserscan.merged_scan_pub as "merged_scan_pub" #blue
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component slam_toolbox {
+
+/' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
+
+/' PORTS FROM THE ORIGINAL NODE '/
+  }
+
+  component rviz2 {
 
 /' PORTS DEFINED AS AVAILABLE IN THE ROSSYSTEM FILE '/
 

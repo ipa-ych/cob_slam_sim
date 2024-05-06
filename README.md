@@ -10,14 +10,23 @@ It holds the launch file to run the following nodes:
 - cmd_vel_bridge_node
 - ros2_laserscan_merger
 - pointcloud_to_laserscan
+- slam_toolbox
+- rviz2
 
 The listed nodes offer the following connections:
 - Publisher: joy_pub [sensor_msgs/Joy]
 - Subscriber: joy_sub [sensor_msgs/Joy]
 - Publisher: cmd_vel_pub [geometry_msgs/Twist]
 - Subscriber: cmd_vel_sub [geometry_msgs/Twist]
-- Publisher: cmd_vel_out_pub [geometry_msgs/Twist]
+- Publisher: tricycle_controller_cmd_vel [geometry_msgs/Twist]
 - Subscriber: cmd_vel_out_sub [geometry_msgs/Twist]
+- Publisher: controller_pub [geometry_msgs/Twist]
+- Publisher: cloud_in_pub [sensor_msgs/PointCloud2]
+- Subscriber: scan_left_sub [sensor_msgs/LaserScan]
+- Subscriber: scan_right_sub [sensor_msgs/LaserScan]
+- Subscriber: scan_front_sub [sensor_msgs/LaserScan]
+- Subscriber: cloud_in_sub [sensor_msgs/PointCloud2]
+- Publisher: merged_scan_pub [sensor_msgs/LaserScan]
 
 ## Installation
 
