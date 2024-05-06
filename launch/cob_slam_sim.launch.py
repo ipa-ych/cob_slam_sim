@@ -49,6 +49,11 @@ def generate_launch_description():
         'config',
         'pointcloud_to_laserscan.yaml'
         )
+    slam_toolbox_config = os.path.join(
+        get_package_share_directory('cob_slam_sim'),
+        'config',
+        'slam_toolbox.yaml'
+        )
 
     joy_node = Node(
         package="joy",
@@ -85,7 +90,9 @@ parameters=[{
         name="cmd_vel_bridge_node",
 parameters=[{
         "diagnostic_updater.period": LaunchConfiguration("diagnostic_updater_period"),
-        "topics.joystick.priority": LaunchConfiguration("topic_joy_priotiry"),}]
+        "topics.joystick.priority": LaunchConfiguration("topic_joy_priotiry"),}],
+        remappings=[
+          ("tricycle_steering_controller/reference_unstamped", "tricycle_controller/cmd_vel")]
     )
     ros2_laserscan_merger = Node(
         package="ros2_laser_scan_merger",
@@ -103,6 +110,21 @@ parameters=[{
         name="pointcloud_to_laserscan",
         parameters = [pointcloud_to_laserscan_config]
     )
+    slam_toolbox = Node(
+        package="slam_toolbox",
+        executable="async_slam_toolbox_node",
+        prefix = 'xterm -e',
+        output='screen',
+        name="slam_toolbox",
+        parameters = [slam_toolbox_config]
+    )
+    rviz2 = Node(
+        package="rviz2",
+        executable="rviz2",
+        prefix = 'xterm -e',
+        output='screen',
+        name="rviz2"
+    )
     include_cob_gazebo= IncludeLaunchDescription(
         PythonLaunchDescriptionSource([get_package_share_directory('cob_sim') + '/launch/cob_gazebo_slam_base.launch.py'])
     )
@@ -113,6 +135,8 @@ parameters=[{
     ld.add_action(cmd_vel_bridge_node)
     ld.add_action(ros2_laserscan_merger)
     ld.add_action(pointcloud_to_laserscan)
+    ld.add_action(slam_toolbox)
+    ld.add_action(rviz2)
     ld.add_action(include_cob_gazebo)
 
     return ld
